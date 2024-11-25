@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link
+      href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&effect=outline"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      @font-face {
+        font-family: instruction;
+        src: url(Lekton-Italic.ttf);
+      }
+      body {
+        background-color: rgba(0, 0, 0, 0);
+        margin: 0px auto;
+        overflow: hidden;
+        font-family: instruction, monospace;
+        font-size: 13px;
+        color: #afafaf;
+      }
+
+      .Blink {
+        animation: blinker 1.5s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+      }
+
+      @keyframes blinker {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      .top-right {
+        float: right;
+        width: auto;
+        text-align: right;
+      }
+
+      .top-right-container {
+        float: right;
+        width: auto;
+        text-align: right;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        margin: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+      }
+
+      .container {
+        width: 100wh;
+        height: 100vh;
+      }
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Bodycam Overlay</title>
+  </head>
+
+  <body>
+    <div class="top-right-container">
+      <div class="top-right">
+        <img
+          src="https://i.postimg.cc/k52Hj39Z/Harmony-LOGO.png"
+          width="64"
+          height="64"
+          border="0"
+        />
+        <!-- ^ Change this url to change image ^ -->
+      </div>
+      <!-- Do not change this -->
+      <div class="top-right">
+        REC&nbsp;<i class="fa fa-circle text-danger Blink"></i
+        >&nbsp;BODYCAM&trade;&nbsp;&nbsp;<br />
+        <span id="player">XXX</span>
+        <span id="callsign">[000]</span>&nbsp;&nbsp;<br />
+        <span id="agency">XXX</span>&nbsp;&nbsp;<br />
+        <span style="padding: 0px; margin: 0px" id="date-span"
+          >00 XXX 0000</span
+        >
+        <span style="padding: 0px; margin: 0px" id="time-span">00:00:00</span>
+        <span style="padding: 0px; margin: 0px" id="tz">UTC</span>&nbsp;&nbsp;
+      </div>
+      <!-- Do not change this -->
+    </div>
+  </body>
+  <script src="./script.js"></script>
+
+  <script>
+    // Edit this for your information
+    const player = "Vineet Siwach";
+    const agency = " HARMONY REPAIRS";
+    const callsign = "[Manager]";
+    // Edit this for your information
+
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+
+    function init() {
+      clock();
+      // Setting initial values
+      document.getElementById("player").innerHTML = player;
+      document.getElementById("agency").innerHTML = agency;
+      document.getElementById("callsign").innerHTML = callsign;
+    }
+
+    function clock() {
+      var d = new Date();
+      updateTime(d);
+      updateDate(d);
+      setTimeout(clock, 1000); // Update every second
+    }
+
+    function updateDate(dt) {
+      var day = dt.getDate();
+      var month = monthNames[dt.getMonth()];
+      var year = dt.getFullYear();
+      var d_str = day + " " + month + " " + year;
+      document.getElementById("date-span").innerHTML = d_str;
+    }
+
+    function updateTime(dt) {
+      var h = dt.getHours().toString();
+      var m = dt.getMinutes().toString();
+      var s = dt.getSeconds().toString();
+      h = h.length == 1 ? "0" + h : h;
+      m = m.length == 1 ? "0" + m : m;
+      s = s.length == 1 ? "0" + s : s;
+      var t_str = h + ":" + m + ":" + s;
+      document.getElementById("time-span").innerHTML = t_str;
+    }
+
+    window.onload = init;
+  </script>
+</html>
